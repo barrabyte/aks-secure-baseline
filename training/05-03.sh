@@ -1,0 +1,31 @@
+echo RESOURCEID_VNET_CLUSTERSPOKE
+echo ${RESOURCEID_VNET_CLUSTERSPOKE} 
+echo ""
+
+echo AADOBJECTID_GROUP_CLUSTERADMIN
+echo ${AADOBJECTID_GROUP_CLUSTERADMIN}
+echo ""
+
+echo TENANTID_K8SRBAC
+echo ${TENANTID_K8SRBAC}
+echo ""
+
+echo APP_GATEWAY_LISTENER_CERTIFICATE
+echo ${APP_GATEWAY_LISTENER_CERTIFICATE}
+echo ""
+
+
+echo AKS_INGRESS_CONTROLLER_CERTIFICATE_BASE64
+echo ${AKS_INGRESS_CONTROLLER_CERTIFICATE_BASE64}
+echo ""
+
+
+az deployment group create \
+	-g $aks \
+	-f cluster-stamp.json \
+	-p targetVnetResourceId=${RESOURCEID_VNET_CLUSTERSPOKE} \
+	   clusterAdminAadGroupObjectId=${AADOBJECTID_GROUP_CLUSTERADMIN} \
+	   k8sControlPlaneAuthorizationTenantId=${TENANTID_K8SRBAC} \
+	   appGatewayListenerCertificate=${APP_GATEWAY_LISTENER_CERTIFICATE} \
+	   aksIngressControllerCertificate=${AKS_INGRESS_CONTROLLER_CERTIFICATE_BASE64}
+
